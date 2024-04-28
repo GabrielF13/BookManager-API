@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookManager.Core.Entities
+﻿namespace BookManager.Core.Entities
 {
     public class User : BaseEntity
     {
@@ -17,7 +11,6 @@ namespace BookManager.Core.Entities
             Active = true;
             CreatedAt = DateTime.Now;
 
-            Books = new List<UserBooks>();
             Loans = new List<Loan>();
         }
 
@@ -27,10 +20,6 @@ namespace BookManager.Core.Entities
         public DateTime CreatedAt { get; private set; }
         public bool Active { get; set; }
 
-
-        public List<UserBooks> Books { get; set; }
-
         public List<Loan> Loans { get; set; }
-
     }
 }

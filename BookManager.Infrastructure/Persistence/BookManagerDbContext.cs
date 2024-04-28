@@ -1,17 +1,13 @@
 ﻿using BookManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookManager.Infrastructure.Persistence
 {
     public class BookManagerDbContext : DbContext
     {
-        public BookManagerDbContext(DbContextOptions<BookManagerDbContext> options) : base(options) { }
-
+        public BookManagerDbContext(DbContextOptions<BookManagerDbContext> options) : base(options)
+        {
+        }
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Loan> Loans { get; set; }
@@ -27,7 +23,6 @@ namespace BookManager.Infrastructure.Persistence
 
             modelBuilder.Entity<User>()
                 .HasKey(u => u.Id);
-
         }
     }
 }

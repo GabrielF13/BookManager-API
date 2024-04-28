@@ -1,11 +1,5 @@
 ﻿using BookManager.Application.InputModels;
 using BookManager.Application.ViewModels;
-using BookManager.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookManager.Application.Services.Interfaces
 {
@@ -21,6 +15,10 @@ namespace BookManager.Application.Services.Interfaces
 
         void Delete(int id);
 
-        void CreateLoanBook(CreateLoanBookInputModel inputModel);
+        void Unavailable(int id);
+
+        void CreateLoanBook(int idBook, CreateLoanBookInputModel inputModel);
+
+        void BookReturned(int idBook, int user);
     }
 }

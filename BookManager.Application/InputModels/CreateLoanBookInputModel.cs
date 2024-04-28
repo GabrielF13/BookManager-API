@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookManager.Core.Enums;
 
 namespace BookManager.Application.InputModels
 {
     public class CreateLoanBookInputModel
     {
+        public LoanStatusEnum Status { get; private set; }
+
+        public int IdUser { get; private set; }
+
+        public int IdBook { get; private set; }
+
+        public int LoanDurationInDays { get; private set; }
     }
 }

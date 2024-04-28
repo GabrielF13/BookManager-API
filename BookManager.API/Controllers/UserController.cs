@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.API.Controllers
 {
@@ -7,11 +6,7 @@ namespace BookManager.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            return Ok();
-        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -19,19 +14,16 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CreateUserModel model)
+        public async Task<IActionResult> Create([FromBody] CreateUserModel createUserModel)
+        {
+            return Created(nameof(GetById), new { id = 1 }, createUserModel);
+        }
+
+        [HttpPut("{id}/login")]
+        public async Task<IActionResult> Login(int id, [FromBody] LoginModel model)
         {
             return Ok();
         }
-        [HttpPut]
-        public async Task<IActionResult> Update(int id, [FromForm] UpdateUserModel model)
-        {
-            return Ok();
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return Ok();
-        }
+
     }
 }

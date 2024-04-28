@@ -4,15 +4,15 @@ namespace BookManager.Core.Entities
 {
     public class Loan : BaseEntity
     {
-        public Loan(LoanStatusEnum status, int idUser, int idBook, DateTime returnDate, int loanDurationInDays)
+        public Loan(int idUser, int idBook, int loanDurationInDays)
         {
-            Status = status;
             IdUser = idUser;
             IdBook = idBook;
-            ReturnDate = returnDate;
             LoanDurationInDays = loanDurationInDays;
 
+            Status = LoanStatusEnum.Approved;
             DateLoan = DateTime.Now;
+            Books = new List<Book>();
         }
 
         public LoanStatusEnum Status { get; private set; }
@@ -27,5 +27,12 @@ namespace BookManager.Core.Entities
 
         public DateTime DateLoan { get; private set; }
 
+        public List<Book> Books { get; private set; }
+        
+
+        public void SetExpectedReturnDate(int loanDurationInDays)
+        {
+            ReturnDate = DateTime.Now.AddDays(loanDurationInDays); 
+        }
     }
 }
