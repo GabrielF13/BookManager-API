@@ -17,7 +17,11 @@ namespace BookManager.Core.Entities
 
         public LoanStatusEnum Status { get; private set; }
 
+        public User User { get; private set; }
+
         public int IdUser { get; private set; }
+
+        public Book Book { get; private set; }
 
         public int IdBook { get; private set; }
 
@@ -28,11 +32,16 @@ namespace BookManager.Core.Entities
         public DateTime DateLoan { get; private set; }
 
         public List<Book> Books { get; private set; }
-        
 
         public void SetExpectedReturnDate(int loanDurationInDays)
         {
-            ReturnDate = DateTime.Now.AddDays(loanDurationInDays); 
+            ReturnDate = DateTime.Now.AddDays(loanDurationInDays);
+        }
+
+        public void Update(LoanStatusEnum status, int loanDurationInDays )
+        {
+            Status = status;
+            LoanDurationInDays = loanDurationInDays;
         }
     }
 }

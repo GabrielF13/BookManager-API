@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookManager.API.Model;
+using BookManager.Application.InputModels;
+using BookManager.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.API.Controllers
 {
@@ -6,17 +9,32 @@ namespace BookManager.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok();
+            var user = _userService.GetUser(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserModel createUserModel)
+        public async Task<IActionResult> Create([FromBody] CreateUserInputModel inputModel)
         {
-            return Created(nameof(GetById), new { id = 1 }, createUserModel);
+            var id = _userService.Create(inputModel);
+
+            return CreatedAtAction(nameof(GetById), new { id = id }, inputModel);
         }
 
         [HttpPut("{id}/login")]

@@ -17,7 +17,7 @@ namespace BookManager.Application.Services.Implementations
 
         public int Create(NewBookInputModel inputModel)
         {
-            var book = new Book(inputModel.Title, inputModel.IdLoan, inputModel.Author, inputModel.ISBN, inputModel.YearPublished);
+            var book = new Book(inputModel.Title, inputModel.Author, inputModel.ISBN, inputModel.YearPublished);
 
             _context.Books.Add(book);
             //_context.SaveChanges();

@@ -39,7 +39,7 @@ namespace BookManager.API.Controllers
         {
             var id = _bookService.Create(model);
 
-            return CreatedAtAction(nameof(GetById), new { id = id }, model);
+            return CreatedAtAction(nameof(GetById), new { id }, model);
         }
 
         [HttpPut]

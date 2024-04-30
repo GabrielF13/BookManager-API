@@ -3,13 +3,6 @@ using BookManager.Application.Services.Interfaces;
 using BookManager.Application.ViewModels;
 using BookManager.Core.Entities;
 using BookManager.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BookManager.Application.Services.Implementations
 {
@@ -22,15 +15,34 @@ namespace BookManager.Application.Services.Implementations
             _context = context;
         }
 
-        public void CreateLoanBook(int idBok, CreateLoanBookInputModel inputModel)
+        public int CreateLoanBook(CreateLoanBookInputModel inputModel)
         {
             var loan = new Loan(inputModel.IdBook, inputModel.IdUser, inputModel.LoanDurationInDays);
 
-            var book = _context.Books.SingleOrDefault(book => book.Id == idBok);
+            var book = _context.Books.SingleOrDefault(book => book.Id == inputModel.IdBook);
 
             book.Borrowed();
             _context.Loans.Add(loan);
 
+            //_context.SaveChanges();
+
+            return loan.Id;
+        }
+
+        public void UpdateLoan(int id, UpdateLoanInputModel inputModel)
+        {
+            var loan = _context.Loans.SingleOrDefault(loan => loan.Id == id);
+
+            loan.Update(inputModel.Status, inputModel.LoanDurationInDays);
+
+            //_context.SaveChanges();
+        }
+
+        public void DeleteLoan(int id)
+        {
+            var loan = _context.Loans.SingleOrDefault(loan => loan.Id == id);
+
+            _context.Loans.Remove(loan);
             //_context.SaveChanges();
         }
 

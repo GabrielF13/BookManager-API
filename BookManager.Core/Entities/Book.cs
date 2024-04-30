@@ -4,16 +4,16 @@ namespace BookManager.Core.Entities
 {
     public class Book : BaseEntity
     {
-        public Book(string title, int? idLoan, string author, string iSBN, int yearPublished)
+        public Book(string title,string author, string iSBN, int yearPublished)
         {
             Title = title;
-            IdLoan = idLoan;
             Author = author;
             ISBN = iSBN;
             YearPublished = yearPublished;
             CreatedAt = DateTime.Now;
 
             Status = BookStatusEnum.Available;
+            Loans = new List<Loan>();
         }
 
         public string Title { get; private set; }
@@ -31,6 +31,8 @@ namespace BookManager.Core.Entities
         public int YearPublished { get; private set; }
 
         public DateTime CreatedAt { get; private set; }
+
+        public List<Loan> Loans { get; private set; }
 
         public void Cancel()
         {

@@ -12,9 +12,13 @@ namespace BookManager.Application.Services.Interfaces
         LoanViewModel GetByUserId(int userId);
         //void Add(LoanInputModel inputModel);
 
-        void CreateLoanBook(int idBok, CreateLoanBookInputModel inputModel);
+        int CreateLoanBook(CreateLoanBookInputModel inputModel);
        
         void SetExpectedReturnDate(int id,int loanDurationInDays);
+
+        void UpdateLoan(int id, UpdateLoanInputModel inputModel);
+
+        void DeleteLoan(int id);
 
     }
 }

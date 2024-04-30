@@ -4,11 +4,10 @@ namespace BookManager.Application.ViewModels
 {
     public class BookDetailsViewModel
     {
-        public BookDetailsViewModel(int id, string title, int? idLoan, int quantity, string author, string iSBN, BookStatusEnum status, int yearPublished, DateTime createdAt)
+        public BookDetailsViewModel(int id, string title, int quantity, string author, string iSBN, BookStatusEnum status, int yearPublished, DateTime createdAt)
         {
             Id = id;
             Title = title;
-            IdLoan = idLoan;
             Quantity = quantity;
             Author = author;
             ISBN = iSBN;
@@ -18,9 +17,8 @@ namespace BookManager.Application.ViewModels
         }
 
         public int Id { get; private set; }
-        public string Title { get; private set; }
 
-        public int? IdLoan { get; private set; }
+        public string Title { get; private set; }
 
         public int Quantity { get; private set; }
 
