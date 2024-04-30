@@ -15,7 +15,7 @@ namespace BookManager.API.Controllers
             _loanService = loanService;
         }
 
-        [HttpGet]
+        [HttpGet("getAll")]
         public async Task<IActionResult> GetAll()
         {
             var loans = _loanService.GetAll();
@@ -23,7 +23,7 @@ namespace BookManager.API.Controllers
             return Ok(loans);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var loan = _loanService.GetById(id);
@@ -31,7 +31,7 @@ namespace BookManager.API.Controllers
             return Ok(loan);
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("getByUserId/{userId}")]
         public async Task<IActionResult> GetByUserId(int userId)
         {
             var loan = _loanService.GetByUserId(userId);
@@ -39,7 +39,7 @@ namespace BookManager.API.Controllers
             return Ok(loan);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromForm] CreateLoanBookInputModel model)
         {
             var id = _loanService.CreateLoanBook(model);
@@ -47,14 +47,14 @@ namespace BookManager.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id }, model);
         }
 
-        [HttpPut]
+        [HttpPut("update")]
         public async Task<IActionResult> Update(int id, [FromForm] UpdateLoanInputModel model)
         {
             _loanService.UpdateLoan(id, model);
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             _loanService.DeleteLoan(id);

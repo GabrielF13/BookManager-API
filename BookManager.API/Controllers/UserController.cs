@@ -29,7 +29,7 @@ namespace BookManager.API.Controllers
             return Ok(user);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateUserInputModel inputModel)
         {
             var id = _userService.Create(inputModel);

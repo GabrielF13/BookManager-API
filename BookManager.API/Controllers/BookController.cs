@@ -15,7 +15,7 @@ namespace BookManager.API.Controllers
             _bookService = bookService;
         }
 
-        [HttpGet]
+        [HttpGet("getAll")]
         public async Task<IActionResult> GetAll()
         {
             var books = _bookService.GetAll();
@@ -23,7 +23,7 @@ namespace BookManager.API.Controllers
             return Ok(books);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var book = _bookService.GetById(id);
@@ -34,7 +34,7 @@ namespace BookManager.API.Controllers
             return Ok(book);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromForm] NewBookInputModel model)
         {
             var id = _bookService.Create(model);
@@ -42,7 +42,7 @@ namespace BookManager.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id }, model);
         }
 
-        [HttpPut]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(int id, [FromForm] UpdateBookInputModel model)
         {
             _bookService.Update(model);
@@ -50,7 +50,7 @@ namespace BookManager.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             _bookService.Delete(id);
