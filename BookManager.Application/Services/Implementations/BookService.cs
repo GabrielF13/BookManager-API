@@ -70,7 +70,7 @@ namespace BookManager.Application.Services.Implementations
             if (book == null)
                 return null;
 
-            var bookDetailsViewModel = new BookDetailsViewModel(book.Id, book.Title, book.IdLoan, book.Quantity, book.Author, book.ISBN, book.Status, book.YearPublished, book.CreatedAt);
+            var bookDetailsViewModel = new BookDetailsViewModel(book.Id, book.Title, book.Quantity, book.Author, book.ISBN, book.Status, book.YearPublished, book.CreatedAt);
 
             return bookDetailsViewModel;
         }
@@ -90,7 +90,6 @@ namespace BookManager.Application.Services.Implementations
             //TODO search user for update to status
 
             book.Borrowed();
-
         }
     }
 }

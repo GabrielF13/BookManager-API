@@ -1,5 +1,6 @@
 ﻿using BookManager.Core.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace BookManager.Infrastructure.Persistence
 {
@@ -15,14 +16,7 @@ namespace BookManager.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Book>()
-                .HasKey(b => b.Id);
-
-            modelBuilder.Entity<Loan>()
-                .HasKey(l => l.Id);
-
-            modelBuilder.Entity<User>()
-                .HasKey(u => u.Id);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

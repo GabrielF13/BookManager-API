@@ -4,7 +4,7 @@ namespace BookManager.Core.Entities
 {
     public class Book : BaseEntity
     {
-        public Book(string title,string author, string iSBN, int yearPublished)
+        public Book(string title, string author, string iSBN, int yearPublished)
         {
             Title = title;
             Author = author;
@@ -70,7 +70,8 @@ namespace BookManager.Core.Entities
             {
                 Quantity += 1;
                 Status = BookStatusEnum.Available;
-            }else
+            }
+            else
             {
                 Quantity += 1;
             }

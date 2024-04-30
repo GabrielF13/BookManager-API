@@ -38,7 +38,7 @@ namespace BookManager.Core.Entities
             ReturnDate = DateTime.Now.AddDays(loanDurationInDays);
         }
 
-        public void Update(LoanStatusEnum status, int loanDurationInDays )
+        public void Update(LoanStatusEnum status, int loanDurationInDays)
         {
             Status = status;
             LoanDurationInDays = loanDurationInDays;

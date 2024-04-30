@@ -1,6 +1,7 @@
 using BookManager.Application.Services.Implementations;
 using BookManager.Application.Services.Interfaces;
 using BookManager.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<BookManagerDbContext>();
+var connectionString = builder.Configuration.GetConnectionString("BookManager");
+builder.Services.AddDbContext<BookManagerDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ILoanService, LoanService>();
 builder.Services.AddScoped<IBookService, BookService>();

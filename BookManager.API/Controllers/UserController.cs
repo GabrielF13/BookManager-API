@@ -42,6 +42,5 @@ namespace BookManager.API.Controllers
         {
             return Ok();
         }
-
     }
 }
