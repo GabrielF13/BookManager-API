@@ -9,9 +9,9 @@ namespace BookManager.Application.Services.Interfaces
 
         BookDetailsViewModel GetById(int id);
 
-        int Create(NewBookInputModel inputModel);
+        int Create(CreateBookInputModel inputModel);
 
-        void Update(UpdateBookInputModel inputModel);
+        void Update(int id, UpdateBookInputModel inputModel);
 
         void Delete(int id);
 

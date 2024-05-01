@@ -20,6 +20,8 @@ namespace BookManager.Application.Services.Implementations
             var user = new User(inputModel.FullName, inputModel.Email, inputModel.BirthDate);
 
             _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
+
             return user.Id;
         }
 

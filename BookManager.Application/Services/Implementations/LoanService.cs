@@ -3,6 +3,7 @@ using BookManager.Application.Services.Interfaces;
 using BookManager.Application.ViewModels;
 using BookManager.Core.Entities;
 using BookManager.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Application.Services.Implementations
 {
@@ -17,14 +18,17 @@ namespace BookManager.Application.Services.Implementations
 
         public int CreateLoanBook(CreateLoanBookInputModel inputModel)
         {
-            var loan = new Loan(inputModel.IdBook, inputModel.IdUser, inputModel.LoanDurationInDays);
+            var loan = new Loan(inputModel.IdUser, inputModel.IdBook, inputModel.LoanDurationInDays);
 
             var book = _context.Books.SingleOrDefault(book => book.Id == inputModel.IdBook);
 
             book.Borrowed();
+
+            loan.SetExpectedReturnDate(inputModel.LoanDurationInDays);
+
             _context.Loans.Add(loan);
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
 
             return loan.Id;
         }
@@ -35,7 +39,9 @@ namespace BookManager.Application.Services.Implementations
 
             loan.Update(inputModel.Status, inputModel.LoanDurationInDays);
 
-            //_context.SaveChanges();
+            loan.SetExpectedReturnDate(inputModel.LoanDurationInDays);
+
+            _context.SaveChanges();
         }
 
         public void DeleteLoan(int id)
@@ -43,7 +49,8 @@ namespace BookManager.Application.Services.Implementations
             var loan = _context.Loans.SingleOrDefault(loan => loan.Id == id);
 
             _context.Loans.Remove(loan);
-            //_context.SaveChanges();
+
+            _context.SaveChanges();
         }
 
         public List<LoanViewModel> GetAll()
@@ -64,13 +71,13 @@ namespace BookManager.Application.Services.Implementations
             return loanViewModel;
         }
 
-        public LoanViewModel GetByUserId(int userId)
+        public List<LoanViewModel> GetByUserId(int userId)
         {
-            var loan = _context.Loans.SingleOrDefault(loan => loan.IdUser == userId);
+            var loans = _context.Loans.Where(loan => loan.IdUser == userId).ToList();
 
-            var loanViewModel = new LoanViewModel(loan.Id, loan.DateLoan, loan.Status, loan.IdUser, loan.IdBook, loan.LoanDurationInDays, loan.ReturnDate);
+            var LoanViewModel = loans.Select(loan => new LoanViewModel(loan.Id, loan.DateLoan, loan.Status, loan.IdUser, loan.IdBook, loan.LoanDurationInDays, loan.ReturnDate)).ToList();
 
-            return loanViewModel;
+            return LoanViewModel;
         }
 
         public void SetExpectedReturnDate(int id, int loanDurationInDays)
@@ -78,6 +85,8 @@ namespace BookManager.Application.Services.Implementations
             var loan = _context.Loans.SingleOrDefault(loan => loan.Id == id);
 
             loan.SetExpectedReturnDate(loanDurationInDays);
+
+            _context.SaveChanges();
         }
     }
 }

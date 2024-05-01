@@ -2,18 +2,18 @@
 {
     public class NewBookInputModel
     {
-        public string Title { get; private set; }
+        public string Title { get;  set; }
 
-        public int IdBook { get; private set; }
+        public int IdBook { get;  set; }
 
-        public int IdLoan { get; private set; }
+        public int IdLoan { get;  set; }
 
-        public int Quantity { get; private set; }
+        public int Quantity { get; set; }
 
-        public string Author { get; private set; }
+        public string Author { get; set; }
 
-        public string ISBN { get; private set; }
+        public string ISBN { get; set; }
 
-        public int YearPublished { get; private set; }
+        public int YearPublished { get; set; }
     }
 }

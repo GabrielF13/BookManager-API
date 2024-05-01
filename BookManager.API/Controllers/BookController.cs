@@ -35,7 +35,7 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromForm] NewBookInputModel model)
+        public async Task<IActionResult> Create([FromBody] CreateBookInputModel model)
         {
             var id = _bookService.Create(model);
 
@@ -43,9 +43,9 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> Update(int id, [FromForm] UpdateBookInputModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateBookInputModel model)
         {
-            _bookService.Update(model);
+            _bookService.Update(id, model);
 
             return Ok();
         }

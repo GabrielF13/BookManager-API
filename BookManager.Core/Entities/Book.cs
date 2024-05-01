@@ -4,12 +4,13 @@ namespace BookManager.Core.Entities
 {
     public class Book : BaseEntity
     {
-        public Book(string title, string author, string iSBN, int yearPublished)
+        public Book(string title, string author, string iSBN, int yearPublished, int quantity)
         {
             Title = title;
             Author = author;
             ISBN = iSBN;
             YearPublished = yearPublished;
+            Quantity = quantity;
             CreatedAt = DateTime.Now;
 
             Status = BookStatusEnum.Available;

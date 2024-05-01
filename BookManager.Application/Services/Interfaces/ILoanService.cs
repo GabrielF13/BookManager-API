@@ -9,7 +9,7 @@ namespace BookManager.Application.Services.Interfaces
 
         LoanViewModel GetById(int id);
 
-        LoanViewModel GetByUserId(int userId);
+        List<LoanViewModel> GetByUserId(int userId);
 
         //void Add(LoanInputModel inputModel);
 

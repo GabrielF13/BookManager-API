@@ -15,12 +15,12 @@ namespace BookManager.Application.Services.Implementations
             _context = context;
         }
 
-        public int Create(NewBookInputModel inputModel)
+        public int Create(CreateBookInputModel inputModel)
         {
-            var book = new Book(inputModel.Title, inputModel.Author, inputModel.ISBN, inputModel.YearPublished);
+            var book = new Book(inputModel.Title, inputModel.Author, inputModel.ISBN, inputModel.YearPublished, inputModel.Quantity);
 
             _context.Books.Add(book);
-            //_context.SaveChanges();
+            _context.SaveChanges();
 
             return book.Id;
         }
@@ -34,7 +34,7 @@ namespace BookManager.Application.Services.Implementations
             book.Borrowed();
             _context.Loans.Add(loan);
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -43,7 +43,7 @@ namespace BookManager.Application.Services.Implementations
 
             _context.Books.Remove(book);
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void Unavailable(int id)
@@ -75,13 +75,13 @@ namespace BookManager.Application.Services.Implementations
             return bookDetailsViewModel;
         }
 
-        public void Update(UpdateBookInputModel inputModel)
+        public void Update(int id,UpdateBookInputModel inputModel)
         {
-            var book = _context.Books.SingleOrDefault(b => b.Id == inputModel.Id);
+            var book = _context.Books.SingleOrDefault(b => b.Id == id);
 
             book.Update(inputModel.Title, inputModel.Quantity, inputModel.Author, inputModel.ISBN, inputModel.Status, inputModel.YearPublished);
 
-            //_context.SaveChanges();
+            _context.SaveChanges();
         }
 
         public void BookReturned(int idBook, int user)

@@ -40,7 +40,7 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromForm] CreateLoanBookInputModel model)
+        public async Task<IActionResult> Create([FromBody] CreateLoanBookInputModel model)
         {
             var id = _loanService.CreateLoanBook(model);
 
@@ -48,7 +48,7 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update(int id, [FromForm] UpdateLoanInputModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateLoanInputModel model)
         {
             _loanService.UpdateLoan(id, model);
             return Ok();
