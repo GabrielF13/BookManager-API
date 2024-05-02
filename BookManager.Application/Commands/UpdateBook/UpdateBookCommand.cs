@@ -1,9 +1,11 @@
 ﻿using BookManager.Core.Enums;
+using MediatR;
 
-namespace BookManager.Application.InputModels
+namespace BookManager.Application.Commands.UpdateBook
 {
-    public class UpdateBookInputModel
+    public class UpdateBookCommand : IRequest<Unit>
     {
+        public int Id { get; set; }
         public string Title { get; set; }
 
         public int Quantity { get; set; }

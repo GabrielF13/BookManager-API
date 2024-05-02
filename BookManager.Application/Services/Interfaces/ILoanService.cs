@@ -1,5 +1,4 @@
-﻿using BookManager.Application.InputModels;
-using BookManager.Application.ViewModels;
+﻿using BookManager.Application.ViewModels;
 
 namespace BookManager.Application.Services.Interfaces
 {
@@ -10,15 +9,5 @@ namespace BookManager.Application.Services.Interfaces
         LoanViewModel GetById(int id);
 
         List<LoanViewModel> GetByUserId(int userId);
-
-        //void Add(LoanInputModel inputModel);
-
-        int CreateLoanBook(CreateLoanBookInputModel inputModel);
-
-        void SetExpectedReturnDate(int id, int loanDurationInDays);
-
-        void UpdateLoan(int id, UpdateLoanInputModel inputModel);
-
-        void DeleteLoan(int id);
     }
 }

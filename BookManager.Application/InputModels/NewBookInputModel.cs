@@ -2,11 +2,11 @@
 {
     public class NewBookInputModel
     {
-        public string Title { get;  set; }
+        public string Title { get; set; }
 
-        public int IdBook { get;  set; }
+        public int IdBook { get; set; }
 
-        public int IdLoan { get;  set; }
+        public int IdLoan { get; set; }
 
         public int Quantity { get; set; }
 

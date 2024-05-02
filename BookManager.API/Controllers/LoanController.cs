@@ -1,5 +1,8 @@
-﻿using BookManager.Application.InputModels;
+﻿using BookManager.Application.Commands.CreateLoanBook;
+using BookManager.Application.Commands.DeleteLoan;
+using BookManager.Application.InputModels;
 using BookManager.Application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.API.Controllers
@@ -9,10 +12,12 @@ namespace BookManager.API.Controllers
     public class LoanController : ControllerBase
     {
         private readonly ILoanService _loanService;
+        private readonly IMediator _mediator;
 
-        public LoanController(ILoanService loanService)
+        public LoanController(ILoanService loanService, IMediator mediator)
         {
             _loanService = loanService;
+            _mediator = mediator;
         }
 
         [HttpGet("getAll")]
@@ -40,26 +45,29 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateLoanBookInputModel model)
+        public async Task<IActionResult> Create([FromBody] CreateLoanBookCommand command)
         {
-            var id = _loanService.CreateLoanBook(model);
+            var id = _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id }, model);
+            return CreatedAtAction(nameof(GetById), new { id }, command);
         }
 
         [HttpPut("update")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateLoanInputModel model)
         {
             _loanService.UpdateLoan(id, model);
-            return Ok();
+
+            return NoContent();
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            _loanService.DeleteLoan(id);
+            var command = new DeleteLoanCommand(id);
 
-            return Ok();
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

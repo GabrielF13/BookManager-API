@@ -1,13 +1,14 @@
+using BookManager.Application.Commands.CreateBook;
 using BookManager.Application.Services.Implementations;
 using BookManager.Application.Services.Interfaces;
 using BookManager.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,6 +19,10 @@ builder.Services.AddDbContext<BookManagerDbContext>(options => options.UseSqlSer
 builder.Services.AddScoped<ILoanService, LoanService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddControllers();
+
+builder.Services.AddMediatR(typeof(CreateBookCommand));
 
 var app = builder.Build();
 

@@ -1,8 +1,9 @@
 ﻿using BookManager.Core.Enums;
+using MediatR;
 
-namespace BookManager.Application.InputModels
+namespace BookManager.Application.Commands.CreateLoanBook
 {
-    public class CreateLoanBookInputModel
+    public class CreateLoanBookCommand : IRequest<int>
     {
         public LoanStatusEnum Status { get; set; }
 

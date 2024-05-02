@@ -1,5 +1,8 @@
-﻿using BookManager.Application.InputModels;
+﻿using BookManager.Application.Commands.CreateBook;
+using BookManager.Application.Commands.DeleteBook;
+using BookManager.Application.Commands.UpdateBook;
 using BookManager.Application.Services.Interfaces;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.API.Controllers
@@ -9,10 +12,12 @@ namespace BookManager.API.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookService _bookService;
+        private readonly IMediator _mediator;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService, IMediator mediator)
         {
             _bookService = bookService;
+            _mediator = mediator;
         }
 
         [HttpGet("getAll")]
@@ -35,27 +40,29 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateBookInputModel model)
+        public async Task<IActionResult> Create([FromBody] CreateBookCommand command)
         {
-            var id = _bookService.Create(model);
+            var id = await _mediator.Send(command);
 
-            return CreatedAtAction(nameof(GetById), new { id }, model);
+            return CreatedAtAction(nameof(GetById), new { id }, command);
         }
 
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateBookInputModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateBookCommand command)
         {
-            _bookService.Update(id, model);
+            await _mediator.Send(command);
 
-            return Ok();
+            return NoContent();
         }
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            _bookService.Delete(id);
+            var command = new DeleteBookCommand(id);
 
-            return Ok();
+            await _mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

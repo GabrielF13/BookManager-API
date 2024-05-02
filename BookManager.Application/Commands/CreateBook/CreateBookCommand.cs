@@ -1,8 +1,8 @@
-﻿using BookManager.Core.Enums;
+﻿using MediatR;
 
-namespace BookManager.Application.InputModels
+namespace BookManager.Application.Commands.CreateBook
 {
-    public class UpdateBookInputModel
+    public class CreateBookCommand : IRequest<int>
     {
         public string Title { get; set; }
 
@@ -11,8 +11,6 @@ namespace BookManager.Application.InputModels
         public string Author { get; set; }
 
         public string ISBN { get; set; }
-
-        public BookStatusEnum Status { get; set; }
 
         public int YearPublished { get; set; }
     }
