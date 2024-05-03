@@ -1,7 +1,9 @@
 ﻿using BookManager.Application.Commands.CreateLoanBook;
 using BookManager.Application.Commands.DeleteLoan;
-using BookManager.Application.InputModels;
-using BookManager.Application.Services.Interfaces;
+using BookManager.Application.Commands.UpdateLoan;
+using BookManager.Application.Queries.GetAllLoans;
+using BookManager.Application.Queries.GetLoanById;
+using BookManager.Application.Queries.GetLoanByUserId;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +13,19 @@ namespace BookManager.API.Controllers
     [ApiController]
     public class LoanController : ControllerBase
     {
-        private readonly ILoanService _loanService;
         private readonly IMediator _mediator;
 
-        public LoanController(ILoanService loanService, IMediator mediator)
+        public LoanController(IMediator mediator)
         {
-            _loanService = loanService;
             _mediator = mediator;
         }
 
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAll()
         {
-            var loans = _loanService.GetAll();
+            var query = new GetAllLoansQuery();
+
+            var loans = _mediator.Send(query);
 
             return Ok(loans);
         }
@@ -31,7 +33,9 @@ namespace BookManager.API.Controllers
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var loan = _loanService.GetById(id);
+            var query = new GetLoanByIdQuery(id);
+
+            var loan = await _mediator.Send(query);
 
             return Ok(loan);
         }
@@ -39,7 +43,9 @@ namespace BookManager.API.Controllers
         [HttpGet("getByUserId/{userId}")]
         public async Task<IActionResult> GetByUserId(int userId)
         {
-            var loan = _loanService.GetByUserId(userId);
+            var query = new GetLoanByUserIdQuery(userId);
+
+            var loan = _mediator.Send(query);
 
             return Ok(loan);
         }
@@ -53,9 +59,9 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateLoanInputModel model)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateLoanCommand command)
         {
-            _loanService.UpdateLoan(id, model);
+            await _mediator.Send(command);
 
             return NoContent();
         }

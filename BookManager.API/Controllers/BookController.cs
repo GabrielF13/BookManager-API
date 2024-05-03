@@ -1,7 +1,8 @@
 ﻿using BookManager.Application.Commands.CreateBook;
 using BookManager.Application.Commands.DeleteBook;
 using BookManager.Application.Commands.UpdateBook;
-using BookManager.Application.Services.Interfaces;
+using BookManager.Application.Queries.GetAllBooks;
+using BookManager.Application.Queries.GetBookById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +12,19 @@ namespace BookManager.API.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IBookService _bookService;
         private readonly IMediator _mediator;
 
-        public BookController(IBookService bookService, IMediator mediator)
+        public BookController(IMediator mediator)
         {
-            _bookService = bookService;
             _mediator = mediator;
         }
 
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAll()
         {
-            var books = _bookService.GetAll();
+            var query = new GetAllBooksQuery();
+
+            var books = await _mediator.Send(query);
 
             return Ok(books);
         }
@@ -31,7 +32,9 @@ namespace BookManager.API.Controllers
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var book = _bookService.GetById(id);
+            var query = new GetBookByIdQuery(id);
+
+            var book = await _mediator.Send(query);
 
             if (book == null)
                 return NotFound();

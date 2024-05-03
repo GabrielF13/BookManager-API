@@ -1,6 +1,6 @@
 ﻿using BookManager.API.Model;
 using BookManager.Application.Commands.CreateUser;
-using BookManager.Application.Services.Interfaces;
+using BookManager.Application.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,19 +10,19 @@ namespace BookManager.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
         private readonly IMediator _mediator;
 
-        public UserController(IUserService userService, IMediator mediator)
+        public UserController(IMediator mediator)
         {
-            _userService = userService;
             _mediator = mediator;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var user = _userService.GetUser(id);
+            var query = new GetUserByIdQuery(id);
+
+            var user = _mediator.Send(query);
 
             if (user == null)
             {

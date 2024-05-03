@@ -14,7 +14,7 @@ namespace BookManager.Application.Commands.DeleteBook
 
         public async Task<Unit> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
-            var book = _context.Books.SingleOrDefault(b => b.Id == id);
+            var book = _context.Books.SingleOrDefault(b => b.Id == request.Id);
 
             _context.Books.Remove(book);
 
