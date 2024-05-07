@@ -1,7 +1,10 @@
+using BookManager.API.Filters;
 using BookManager.Application.Commands.CreateBook;
+using BookManager.Application.Validators;
 using BookManager.Core.Repositories;
 using BookManager.Infrastructure.Persistence;
 using BookManager.Infrastructure.Persistence.Repositories;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +23,8 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommandValidator>());
 
 builder.Services.AddMediatR(typeof(CreateBookCommand));
 
