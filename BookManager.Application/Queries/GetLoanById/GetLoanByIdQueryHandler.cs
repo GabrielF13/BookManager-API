@@ -1,22 +1,21 @@
 ﻿using BookManager.Application.ViewModels;
-using BookManager.Infrastructure.Persistence;
+using BookManager.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Application.Queries.GetLoanById
 {
     public class GetLoanByIdQueryHandler : IRequestHandler<GetLoanByIdQuery, LoanViewModel>
     {
-        private readonly BookManagerDbContext _context;
+        private readonly ILoanRepository _repository;
 
-        public GetLoanByIdQueryHandler(BookManagerDbContext context)
+        public GetLoanByIdQueryHandler(ILoanRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<LoanViewModel> Handle(GetLoanByIdQuery request, CancellationToken cancellationToken)
         {
-            var loan = await _context.Loans.SingleOrDefaultAsync(loan => loan.Id == request.Id);
+            var loan = await _repository.GetLoanByIdAsync(request.Id);
 
             var loanViewModel = new LoanViewModel(loan.Id, loan.DateLoan, loan.Status, loan.IdUser, loan.IdBook, loan.LoanDurationInDays, loan.ReturnDate);
 

@@ -1,24 +1,25 @@
-﻿using BookManager.Infrastructure.Persistence;
+﻿using BookManager.Core.Repositories;
+using BookManager.Infrastructure.Persistence;
 using MediatR;
 
 namespace BookManager.Application.Commands.DeleteBook
 {
     public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, Unit>
     {
-        private readonly BookManagerDbContext _context;
+        private readonly IBookRepository _repository;
 
-        public DeleteBookCommandHandler(BookManagerDbContext context)
+        public DeleteBookCommandHandler(IBookRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<Unit> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
-            var book = _context.Books.SingleOrDefault(b => b.Id == request.Id);
+            var book = await _repository.GetByIdAsync(request.Id);
 
-            _context.Books.Remove(book);
+            book.Cancel();
 
-            await _context.SaveChangesAsync();
+            await _repository.SaveChangesAsync();
 
             return Unit.Value;
         }

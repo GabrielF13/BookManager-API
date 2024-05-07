@@ -1,5 +1,7 @@
 using BookManager.Application.Commands.CreateBook;
+using BookManager.Core.Repositories;
 using BookManager.Infrastructure.Persistence;
+using BookManager.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,10 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("BookManager");
 builder.Services.AddDbContext<BookManagerDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 
 builder.Services.AddControllers();
 

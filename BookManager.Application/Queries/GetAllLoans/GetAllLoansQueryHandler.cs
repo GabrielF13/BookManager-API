@@ -1,24 +1,23 @@
 ﻿using BookManager.Application.ViewModels;
-using BookManager.Infrastructure.Persistence;
+using BookManager.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Application.Queries.GetAllLoans
 {
     public class GetAllLoansQueryHandler : IRequestHandler<GetAllLoansQuery, List<LoanViewModel>>
     {
-        private readonly BookManagerDbContext _context;
+        private readonly ILoanRepository _repository;
 
-        public GetAllLoansQueryHandler(BookManagerDbContext context)
+        public GetAllLoansQueryHandler(ILoanRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<List<LoanViewModel>> Handle(GetAllLoansQuery request, CancellationToken cancellationToken)
         {
-            var loans = _context.Loans;
+            var loans = await _repository.GetAllLoanAsync();
 
-            var loansViewModels = await loans.Select(loan => new LoanViewModel(loan.Id, loan.DateLoan, loan.Status, loan.IdUser, loan.IdBook, loan.LoanDurationInDays, loan.ReturnDate)).ToListAsync();
+            var loansViewModels = loans.Select(loan => new LoanViewModel(loan.Id, loan.DateLoan, loan.Status, loan.IdUser, loan.IdBook, loan.LoanDurationInDays, loan.ReturnDate)).ToList();
 
             return loansViewModels;
         }

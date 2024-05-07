@@ -1,31 +1,31 @@
 ﻿using BookManager.Core.Entities;
-using BookManager.Infrastructure.Persistence;
+using BookManager.Core.Repositories;
 using MediatR;
 
 namespace BookManager.Application.Commands.CreateLoanBook
 {
     public class CreateLoanBookCommandHandler : IRequestHandler<CreateLoanBookCommand, int>
     {
-        private readonly BookManagerDbContext _context;
+        private readonly ILoanRepository _loanRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public CreateLoanBookCommandHandler(BookManagerDbContext context)
+        public CreateLoanBookCommandHandler(ILoanRepository loanRepository, IBookRepository bookRepository)
         {
-            _context = context;
+            _loanRepository = loanRepository;
+            _bookRepository = bookRepository;
         }
 
         public async Task<int> Handle(CreateLoanBookCommand request, CancellationToken cancellationToken)
         {
             var loan = new Loan(request.IdUser, request.IdBook, request.LoanDurationInDays);
 
-            var book = _context.Books.SingleOrDefault(book => book.Id == request.IdBook);
+            var book = await _bookRepository.GetByIdAsync(loan.Id);
 
             book.Borrowed();
 
             loan.SetExpectedReturnDate(request.LoanDurationInDays);
 
-            await _context.Loans.AddAsync(loan);
-
-            await _context.SaveChangesAsync();
+            await _loanRepository.SaveChangesAsync();
 
             return loan.Id;
         }

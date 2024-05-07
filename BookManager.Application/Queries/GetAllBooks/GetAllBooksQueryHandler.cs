@@ -1,25 +1,24 @@
 ﻿using BookManager.Application.ViewModels;
-using BookManager.Infrastructure.Persistence;
+using BookManager.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Application.Queries.GetAllBooks
 {
     public class GetAllBooksQueryHandler : IRequestHandler<GetAllBooksQuery, List<BookViewModel>>
     {
-        private readonly BookManagerDbContext _context;
+        private readonly IBookRepository _repository;
 
-        public GetAllBooksQueryHandler(BookManagerDbContext context)
+        public GetAllBooksQueryHandler(IBookRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public async Task<List<BookViewModel>> Handle(GetAllBooksQuery request, CancellationToken cancellationToken)
         {
-            var books = _context.Books;
+            var books = await _repository.GetAll();
 
-            var booksViewModels = await books
-                .Select(b => new BookViewModel(b.Id, b.Title, b.Author, b.ISBN, b.YearPublished)).ToListAsync();
+            var booksViewModels = books
+                .Select(b => new BookViewModel(b.Id, b.Title, b.Author, b.ISBN, b.YearPublished)).ToList();
 
             return booksViewModels;
         }
