@@ -3,11 +3,13 @@ using BookManager.Application.Commands.CreateUser;
 using BookManager.Application.Commands.LoginUser;
 using BookManager.Application.Queries.GetUserById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -34,6 +36,7 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPost("create")]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
             var id = _mediator.Send(command);
@@ -42,6 +45,7 @@ namespace BookManager.API.Controllers
         }
 
         [HttpPut("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
             var loginUserViewModel = await _mediator.Send(command);

@@ -4,11 +4,13 @@ using BookManager.Application.Commands.UpdateBook;
 using BookManager.Application.Queries.GetAllBooks;
 using BookManager.Application.Queries.GetBookById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookManager.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class BookController : ControllerBase
     {
