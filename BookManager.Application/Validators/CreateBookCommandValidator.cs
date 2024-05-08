@@ -7,7 +7,7 @@ namespace BookManager.Application.Validators
     {
         public CreateBookCommandValidator()
         {
-            RuleFor(b=> b.Title)
+            RuleFor(b => b.Title)
                 .MaximumLength(100)
                 .WithMessage("Título deve conter no maximo 100 caracteres");
 
@@ -19,6 +19,5 @@ namespace BookManager.Application.Validators
                 .NotNull()
                 .WithMessage("ISBN deve ser informado");
         }
-        
     }
 }

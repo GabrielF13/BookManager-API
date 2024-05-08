@@ -1,5 +1,6 @@
 ﻿using BookManager.API.Model;
 using BookManager.Application.Commands.CreateUser;
+using BookManager.Application.Commands.LoginUser;
 using BookManager.Application.Queries.GetUserById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -40,10 +41,15 @@ namespace BookManager.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = id }, command);
         }
 
-        [HttpPut("{id}/login")]
-        public async Task<IActionResult> Login(int id, [FromBody] LoginModel model)
+        [HttpPut("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
-            return Ok();
+            var loginUserViewModel = await _mediator.Send(command);
+
+            if (loginUserViewModel == null)
+                return BadRequest();
+
+            return Ok(loginUserViewModel);
         }
     }
 }

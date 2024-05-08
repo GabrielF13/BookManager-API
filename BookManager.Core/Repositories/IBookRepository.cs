@@ -9,7 +9,7 @@ namespace BookManager.Core.Repositories
         Task<Book> GetByIdAsync(int id);
 
         Task CreateAsync(Book book);
-        
+
         Task SaveChangesAsync();
     }
 }

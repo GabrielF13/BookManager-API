@@ -1,5 +1,4 @@
 ﻿using BookManager.Core.Repositories;
-using BookManager.Infrastructure.Persistence;
 using MediatR;
 
 namespace BookManager.Application.Commands.UpdateLoan

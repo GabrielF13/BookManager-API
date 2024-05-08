@@ -1,6 +1,5 @@
 ﻿using BookManager.Core.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BookManager.Application.Commands.DeleteLoan
 {

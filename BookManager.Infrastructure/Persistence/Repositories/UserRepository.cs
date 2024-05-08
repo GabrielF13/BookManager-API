@@ -12,7 +12,6 @@ namespace BookManager.Infrastructure.Persistence.Repositories
         {
             _context = context;
         }
-        
 
         public async Task<User> GetUserByIdAsync(int id)
         {
@@ -23,6 +22,11 @@ namespace BookManager.Infrastructure.Persistence.Repositories
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<User> GetUserByEmailAndPasswordAsync(string email, string passwordHash)
+        {
+            return await _context.Users.SingleOrDefaultAsync(u => u.Email == email && u.Password == passwordHash);
         }
     }
 }

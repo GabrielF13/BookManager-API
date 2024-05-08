@@ -1,5 +1,4 @@
-﻿using BookManager.Application.Commands.CreateBook;
-using BookManager.Application.Commands.CreateUser;
+﻿using BookManager.Application.Commands.CreateUser;
 using FluentValidation;
 using System.Text.RegularExpressions;
 

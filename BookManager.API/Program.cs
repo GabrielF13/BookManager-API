@@ -2,6 +2,8 @@ using BookManager.API.Filters;
 using BookManager.Application.Commands.CreateBook;
 using BookManager.Application.Validators;
 using BookManager.Core.Repositories;
+using BookManager.Core.Services;
+using BookManager.Infrastructure.Auth;
 using BookManager.Infrastructure.Persistence;
 using BookManager.Infrastructure.Persistence.Repositories;
 using FluentValidation.AspNetCore;
@@ -22,6 +24,7 @@ builder.Services.AddDbContext<BookManagerDbContext>(options => options.UseSqlSer
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommandValidator>());
