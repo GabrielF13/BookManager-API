@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.API", "BookManager.API\BookManager.API.csproj", "{1BE6F4A7-D149-4ABC-9427-F480CD46E11F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookManager.API", "BookManager.API\BookManager.API.csproj", "{1BE6F4A7-D149-4ABC-9427-F480CD46E11F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Core", "BookManager.Core\BookManager.Core.csproj", "{244D29C1-779E-453B-8655-8AA132CB4DFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookManager.Core", "BookManager.Core\BookManager.Core.csproj", "{244D29C1-779E-453B-8655-8AA132CB4DFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Application", "BookManager.Application\BookManager.Application.csproj", "{D96C30F0-D778-4C42-8FA1-5AE2CD0410CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookManager.Application", "BookManager.Application\BookManager.Application.csproj", "{D96C30F0-D778-4C42-8FA1-5AE2CD0410CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.Infrastructure", "BookManager.Infrastructure\BookManager.Infrastructure.csproj", "{104E9DF0-8083-46B4-A155-FAB7339E7D8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookManager.Infrastructure", "BookManager.Infrastructure\BookManager.Infrastructure.csproj", "{104E9DF0-8083-46B4-A155-FAB7339E7D8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookManager.UnitTests", "BookManager.UnitTests\BookManager.UnitTests.csproj", "{EA1DD569-8656-401D-BDDA-AFECB96EBE89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{104E9DF0-8083-46B4-A155-FAB7339E7D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{104E9DF0-8083-46B4-A155-FAB7339E7D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{104E9DF0-8083-46B4-A155-FAB7339E7D8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA1DD569-8656-401D-BDDA-AFECB96EBE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA1DD569-8656-401D-BDDA-AFECB96EBE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA1DD569-8656-401D-BDDA-AFECB96EBE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA1DD569-8656-401D-BDDA-AFECB96EBE89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
