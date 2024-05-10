@@ -21,10 +21,6 @@ Este é um projeto de API REST desenvolvido em C# utilizando o ecossistema .NET 
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue para reportar problemas ou sugerir melhorias. Se preferir, faça um pull request com suas contribuições.
 
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais detalhes.
-
 ---
 
 Feito por Gabriel Ferreira (https://github.com/GabrielF13)
