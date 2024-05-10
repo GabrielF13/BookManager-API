@@ -12,7 +12,7 @@ Este é um projeto de API REST desenvolvido em C# utilizando o ecossistema .NET 
 
 ## Como Usar
 
-1. **Clone o repositório:** `git clone https://github.com/seu-usuario/seu-projeto.git`
+1. **Clone o repositório:** `git clone https://github.com/GabrielF13/BookManager-API.git`
 2. **Instale as dependências:** `dotnet restore`
 3. **Configure o ambiente:** Renomeie `appsettings.example.json` para `appsettings.json` e configure as variáveis de ambiente necessárias.
 4. **Execute a aplicação:** `dotnet run`
